@@ -1,0 +1,6 @@
+<?php
+$gaSql['user'] = "admin";
+$gaSql['password'] = "admin";
+$gaSql['db'] = "dental";
+$gaSql['server'] = "localhost";
+?>
