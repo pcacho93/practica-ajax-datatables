@@ -1,6 +1,6 @@
 // Generated on 2015-02-20 using
 // generator-webapp 0.5.1
-'use strict';
+'u'use strict';
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -59,7 +59,8 @@ module.exports = function (grunt) {
         files: [
           '<%= config.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '<%= config.app %>/images/{,*/}*'
+          '<%= config.app %>/images/{,*/}*',
+        '<%= config.app %>/fonts/{,*/}*'
         ]
       }
     },
@@ -164,8 +165,7 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         ignorePath: /^\/|\.\.\//,
-        src: ['<%= config.app %>/index.html'],
-        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
+        src: ['<%= config.app %>/index.html']
       }
     },
 
@@ -177,6 +177,7 @@ module.exports = function (grunt) {
             '<%= config.dist %>/scripts/{,*/}*.js',
             '<%= config.dist %>/styles/{,*/}*.css',
             '<%= config.dist %>/images/{,*/}*.*',
+            '<%= config.dist %>/fonts/{,*/}*.*',
             '<%= config.dist %>/styles/fonts/{,*/}*.*',
             '<%= config.dist %>/*.{ico,png}'
           ]
@@ -200,6 +201,7 @@ module.exports = function (grunt) {
         assetsDirs: [
           '<%= config.dist %>',
           '<%= config.dist %>/images',
+          '<%= config.dist %>/fonts',
           '<%= config.dist %>/styles'
         ]
       },
@@ -290,17 +292,18 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             'images/{,*/}*.webp',
             '{,*/}*.html',
-            'styles/fonts/{,*/}*.*'
+            'fonts/{,*/}*.*',
+            'extra/*.*'
           ]
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',
           dest: '<%= config.dist %>/.htaccess'
-        }, {
+        },{
           expand: true,
           dot: true,
-          cwd: 'bower_components/bootstrap/dist',
-          src: 'fonts/*',
-          dest: '<%= config.dist %>'
+          cwd: '<%= config.app %>/php',
+          dest: '<%= config.dist %>/php/',
+          src: '{,*/}*.php'
         }]
       },
       styles: {
