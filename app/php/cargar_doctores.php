@@ -1,5 +1,5 @@
-
 <?php
+ 
 /*
  * DataTables example server-side processing script.
  *
@@ -19,7 +19,7 @@
  */
  
 // DB table to use
-$table = 'vistaPractica	';
+$table = 'vDoctores';
  
 // Table's primary key
 $primaryKey = 'numcolegiado';
@@ -30,10 +30,9 @@ $primaryKey = 'numcolegiado';
 // indexes
 $columns = array(
     array( 'db' => 'nombredoctor', 'dt' => 'nombredoctor' ),
-    array( 'db' => 'numcolegiado', 'dt' => 'numcolegiado'),
-    array( 'db' => 'nombre',  'dt' => 'nombre' )
+    array( 'db' => 'numcolegiado',  'dt' => 'numcolegiado' ),
+    array( 'db' => 'nombre',   'dt' => 'nombre' )
 );
- 
 // SQL server connection information
 $sql_details = array(
     'user' => 'root',
@@ -49,6 +48,7 @@ $sql_details = array(
  */
  
 require( 'ssp.class.php' );
+ 
 echo json_encode(
     SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
 );
