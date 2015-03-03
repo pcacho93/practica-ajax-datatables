@@ -56,7 +56,6 @@ $(document).ready(function() {
             }
         });
 
-        //modificando data-clinicas, que recoge referencias a las clinicas de un doctor
 
 
     }

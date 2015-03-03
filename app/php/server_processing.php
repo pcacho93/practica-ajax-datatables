@@ -1,3 +1,4 @@
+
 <?php
 /*
  * DataTables example server-side processing script.
@@ -28,9 +29,9 @@ $primaryKey = 'numcolegiado';
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'nombre', 'dt' => 0 ),
-    array( 'db' => 'numcolegiado', 'dt' => 1),
-    array( 'db' => 'clinicas',  'dt' => 2 )
+    array( 'db' => 'nombredoctor', 'dt' => 'nombredoctor' ),
+    array( 'db' => 'numcolegiado', 'dt' => 'numcolegiado'),
+    array( 'db' => 'nombre',  'dt' => 'nombre' )
 );
  
 // SQL server connection information
