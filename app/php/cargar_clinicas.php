@@ -19,20 +19,27 @@
  */
  
 // DB table to use
-$table = 'vDoctores';
+$table = 'clinicas';
  
 // Table's primary key
-$primaryKey = 'numcolegiado';
+$primaryKey = 'id_clinica';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'nombredoctor', 'dt' => 'nombredoctor' ),
-    array( 'db' => 'numcolegiado',  'dt' => 'numcolegiado' ),
-    array( 'db' => 'nombre',   'dt' => 'nombre' )
+    array( 'db' => 'id_clinica', 'dt' => 0 ),
+    array( 'db' => 'nombre',  'dt' => 1 ),
+    array( 'db' => 'razonsocial',   'dt' => 2 ),
+    array( 'db' => 'cif',     'dt' => 3 ),
+    array( 'db' => 'localidad', 'dt' => 4 ),
+    array( 'db' => 'provincia',  'dt' => 5 ),
+    array( 'db' => 'direccion',   'dt' => 6 ),
+    array( 'db' => 'numclinica',     'dt' => 7 ),
+    array( 'db' => 'id_tarifa',     'dt' => 8 )
 );
+ 
 // SQL server connection information
 $sql_details = array(
     'user' => 'root',
