@@ -1,4 +1,4 @@
-// Generated on 2015-02-20 using
+// Generated on 2015-02-17 using
 // generator-webapp 0.5.1
 'use strict';
 
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
+    dist: '/var/www/practica-ajax'
   };
 
   // Define the configuration for all the tasks
@@ -59,8 +59,7 @@ module.exports = function (grunt) {
         files: [
           '<%= config.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '<%= config.app %>/images/{,*/}*',
-        '<%= config.app %>/fonts/{,*/}*'
+          '<%= config.app %>/images/{,*/}*'
         ]
       }
     },
@@ -165,7 +164,8 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         ignorePath: /^\/|\.\.\//,
-        src: ['<%= config.app %>/index.html']
+        src: ['<%= config.app %>/index.html'],
+        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
       }
     },
 
@@ -177,7 +177,6 @@ module.exports = function (grunt) {
             '<%= config.dist %>/scripts/{,*/}*.js',
             '<%= config.dist %>/styles/{,*/}*.css',
             '<%= config.dist %>/images/{,*/}*.*',
-            '<%= config.dist %>/fonts/{,*/}*.*',
             '<%= config.dist %>/styles/fonts/{,*/}*.*',
             '<%= config.dist %>/*.{ico,png}'
           ]
@@ -201,7 +200,6 @@ module.exports = function (grunt) {
         assetsDirs: [
           '<%= config.dist %>',
           '<%= config.dist %>/images',
-          '<%= config.dist %>/fonts',
           '<%= config.dist %>/styles'
         ]
       },
@@ -292,18 +290,18 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             'images/{,*/}*.webp',
             '{,*/}*.html',
-            'fonts/{,*/}*.*',
-            'extra/*.*'
+            'styles/fonts/{,*/}*.*',
+            'php/*.*'
           ]
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',
-          dest: '<%= config.dist %>/.htaccess'
-        },{
+          dest: '<%= config.dist %>/htaccess'
+        }, {
           expand: true,
           dot: true,
-          cwd: '<%= config.app %>/php',
-          dest: '<%= config.dist %>/php/',
-          src: '{,*/}*.php'
+          cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= config.dist %>'
         }]
       },
       styles: {

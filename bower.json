@@ -2,11 +2,8 @@
   "name": "practica-ajax-datatables",
   "private": true,
   "dependencies": {
-    "jquery": "~1.11.1",
-    "datatables": "~1.10.5",
-    "growl": "~1.2.5",
-    "datatables-bootstrap3": "*",
-    "bootstrap": "~3.3.2",
+    "bootstrap": "~3.2.0",
+    "bootstrap.growl": "~2.0.1",
     "jquery-validate": "~1.13.1"
   }
 }

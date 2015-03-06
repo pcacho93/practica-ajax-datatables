@@ -10,9 +10,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="bower_components/growl/stylesheets/jquery.growl.css" />
-    <link rel="stylesheet" href="bower_components/datatables-bootstrap3/BS3/assets/css/datatables.css" />
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
@@ -30,13 +27,12 @@
                 <table id="miTabla" class="table stripe">
                 <!--cabecera de la pagina, titulo e icono-->
                
-
         <div id="edicionok" class="alert alert-success" role="alert">Edicion correta!</div>
     <div id="edicionerr" class="alert alert-danger" role="alert">Edicion erronea!</div>
 
                 <!--boton añadir doctor-->
                 <button id="creaDoc" type="button" class="btn btn-success navbar-btn">Añadir doctor</button>
-               <!--boton github-->
+                 <!--boton añadir doctor-->
                 <a href="https://github.com/pcacho93/practica-ajax-datatables" target="blank"><button id="github" type="button" class="btn btn-info navbar-btn">Github</button></a>
                 <!--tabla-->
                     <thead>
@@ -62,11 +58,11 @@
 
         </div>
 
-
-        <!-- Formulario boton editar-->
+        <!-- Formulario boton editar
+        -->
         <div id="formulario" class="row">
             <div class="col-md-4 col-md-offset-3">
-              
+                <!--/*el formulario es aproximadamente un copy-paste de http://getbootstrap.com/css/#forms -->
                 <form class="form-horizontal" id="formEditar" action="" method="post" >
                     <div>
                     <h2>Editar doctor</h2>
@@ -109,7 +105,6 @@
 
             </div>
         </div>
-        <!--FIN form boton editar-->
 
  <!-- ventana modal borrar
         -->
@@ -131,13 +126,13 @@
     </div>
   </div>
 </div>
-<!--FIN ventana modal borrar-->
 
 
-        <!-- formulario boton añadir doctor-->
+        <!-- formulario boton añadir doctor
+        -->
         <div id="formularioCrear" class="row">
             <div class="col-md-4 col-md-offset-3">
-               
+                <!--/*el formulario es aproximadamente un copy-paste de http://getbootstrap.com/css/#forms -->
                 <form class="form-horizontal" id="formCrear" name="formCrear" method="post" action="#"  >
                     <div>
                     <h2>Añadir nuevo doctor</h2>
@@ -176,7 +171,6 @@
 
             </div>
         </div>
-        <!--FIN form añadir doctor-->
 
     </div>
 
@@ -188,10 +182,7 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
-    <script src="bower_components/growl/javascripts/jquery.growl.js"></script>
-    <script src="bower_components/datatables-bootstrap3/BS3/assets/js/datatables.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/bootstrap.growl/bootstrap-growl.js"></script>
     <script src="bower_components/jquery-validate/dist/jquery.validate.js"></script>
     <!-- endbower -->
     <!-- endbuild -->

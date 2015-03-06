@@ -1,7 +1,7 @@
- 'use strict';
+  'use strict';
 
 $.validator.addMethod("lettersonly", function(value, element) {
-    return this.optional(element) || /^[a-z]+$/i.test(value);
+    return this.optional(element) || /^[a-z\s\ñ\Ñ]+$/i.test(value);
 }, "Solo letras por favor");
 
 
@@ -9,8 +9,6 @@ var idDoctor;
 
 
    $(document).ready(function() {
-
-
 
      
        var miTabla = $('#miTabla').DataTable({
@@ -54,7 +52,9 @@ var idDoctor;
                'data': 'idClinica',
                 "visible": false
            }, {
-               'data': 'idDoctor',             
+               'data': 'idDoctor',
+               /*añadimos las clases editarbtn y borrarbtn para procesar los eventos click de los botones. No lo hacemos mediante id ya que habrá más de un
+               botón de edición o borrado*/
                'render': function(data) {
                    return '<a class="btn btn-primary editarbtn" href=http://localhost/php/modificar_clinica.php?id_doctor=' + data + '>Editar</a><a data-toggle="modal" data-target="#basicModal"  class="btn btn-warning borrarbtn" href=http://localhost/php/borrar_doctor.php?id_doctor=' + data + '>Borrar</a>';
                }
@@ -62,11 +62,8 @@ var idDoctor;
        });
 
 
-       /*Creamos la función que muestre el formulario cuando hagamos click
-       ojo, es necesario hacerlo con el método ON. 
-       Tanto por rendimiento como porque puede haber elementos (botones) que todavía no existan en el document.ready*/
-
-       //INICIO FUNCION editarbtn
+       /*Creamos la función que muestre el formulario cuando hagamos click*/
+       /*ojo, es necesario hacerlo con el método ON. Tanto por rendimiento como porque puede haber elementos (botones) que todavía no existan en el document.ready*/
        $('#miTabla').on('click', '.editarbtn', function(e) {
            e.preventDefault();
 
@@ -79,52 +76,53 @@ var idDoctor;
            $('#nombre').val(aData.nombre);
            $('#numcolegiado').val(aData.numcolegiado);
            $('#clinicas').val(aData.nombreClinica);
+          // var prueba=$('#idClinica').val(aData.idDoctor);
            cargarTarifas();
            
+          // alert(aData.idClinica);
+          //selecciono las que estaban
           var str = aData.idClinica;
 
           str = str.split(",");
 
+          //cargo el select con las que ya estaban
           $('#clinicas').val(str);
           
+           /*
+           $('#clinicas').each(function() {
+                 str.push($(this).val());
+            });
+*/
+           // $('#clinicas').sel('2');
+          // $('#clinicas').val(aData.idDoctor);
+
+
            
        });
-       //FIN FUNCION editarbtn
 
 
-
-      //INICIO FUNCION borrarbtn
        $('#miTabla').on('click', '.borrarbtn', function(e) {
            //e.preventDefault();
                     var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
            idDoctor = aData.idDoctor;
 
-           alert(idDoctor);
-
+       
        });
-       //FIN FUNCION borrarbtn
 
-       //INICIO FUNCION modal confborrar
        $('#basicModal').on('click','#confBorrar',function(e){
-        alert(idDoctor);
-
+      
 
            $.ajax({
-               /*en principio el type para api restful sería delete pero no lo recogeríamos en $_REQUEST, así que queda como POST*/
+
                type: 'POST',
                dataType: 'json',
                url: 'php/borrar_doctor.php',
-               //estos son los datos que queremos actualizar, en json:
                data: {
                    id_doctor: idDoctor
                },
                error: function(xhr, status, error) {
-                   //mostraríamos alguna ventana de alerta con el error
-                   alert("Ha entrado en error");
-               // $('#edicionerr').html("Error al borrar doctor!").slideDown(2000).slideUp(2000);
-
-
+                  
                 $.growl({
                   
                   icon: "glyphicon glyphicon-remove",
@@ -135,14 +133,10 @@ var idDoctor;
                 });
                },
                success: function(data) {
-                alert("borrado ok");
-                   //obtenemos el mensaje del servidor, es un array!!!
-                   //var mensaje = (data["mensaje"]) //o data[0], en función del tipo de array!!
-                   //actualizamos datatables:
-                   /*para volver a pedir vía ajax los datos de la tabla*/
+              
                    var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
                   $mitabla.fnDraw();
-                 //  $('#edicionok').html("Borrado correcto!").slideDown(2000).slideUp(2000);
+                
                 $.growl({
                   
                   icon: "glyphicon glyphicon-remove",
@@ -153,14 +147,13 @@ var idDoctor;
                 });
                },
                complete: {
-                   //si queremos hacer algo al terminar la petición ajax
+                 
                }
            });
         $('#tabla').fadeIn(100);
        });
-      //FIN FUNCION modal confBorrar
 
-      //INICIO FUNCION formulario editar(validar,growl etc)
+          //VALIDACION DEL FORMULARIO EDITAR
            $('#formEditar').validate({
                         
                         rules: {
@@ -190,10 +183,7 @@ var idDoctor;
                type: 'POST',
                dataType: 'json',
                url: 'php/modificar_clinica.php',
-               //lo más cómodo sería mandar los datos mediante 
-               //var data = $( "form" ).serialize();
-               //pero como el php tiene otros nombres de variables, lo dejo así
-               //estos son los datos que queremos actualizar, en json:
+              
                data: {
                    idDoctor: idDoctor,
                    nombre: nombre,
@@ -202,13 +192,7 @@ var idDoctor;
                    
                },
                error: function(xhr, status, error) {
-                   //mostraríamos alguna ventana de alerta con el error
-                    alert(error);
-                    alert(xhr);
-
-                    alert(status);
-
-                   // $('#edicionerr').slideDown(2000).slideUp(2000);
+                   
 
                     $.growl({
                   
@@ -223,8 +207,7 @@ var idDoctor;
                success: function(data) {
                   var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
                   $mitabla.fnDraw();
-                 // alert("ok");
-              //  $('#edicionok').slideDown(2000).slideUp(2000);
+                
 
                
                
@@ -252,21 +235,24 @@ var idDoctor;
 
                },
                complete: {
-                   //si queremos hacer algo al terminar la petición ajax
+                   
 
                }
            });
 
            $('#tabla').fadeIn(100);
            $('#formulario').fadeOut(100);
-            //$("#edicion").fadeOut(100);
+            
 
         }
                        
    });
-        //FIN FUNCION formulario editar
+  //FIN VALIDACION FORMULARIO EDITAR
 
-        //INICIO FUNCION formulario crear
+
+
+   
+  //INICIO FORMULARIO AÑADIR
            $('#formCrear').validate({
                         
                         rules: {
@@ -293,14 +279,17 @@ var idDoctor;
                type: 'POST',
                dataType: 'json',
                url: 'php/crear_doctor.php',
+               
                data: {
                    nombreNuevo: nombreNuevo,
                    numcolegiadoNuevo: numcolegiadoNuevo,
                    clinicas2: clinicas2
                    
                },
+
+               
                error: function(xhr, status, error) {
-                  
+                   
                     $.growl({
                   
                   icon: "glyphicon glyphicon-remove",
@@ -314,7 +303,7 @@ var idDoctor;
                success: function(data) {
                   var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
                   $mitabla.fnDraw();
-              
+                 
                 if(data[0].estado==0){
 
                  $.growl({
@@ -339,7 +328,7 @@ var idDoctor;
 
                },
                complete: {
-                   //si queremos hacer algo al terminar la petición ajax
+                   
 
                }
            });
@@ -349,11 +338,11 @@ var idDoctor;
         }
                        
    });
-  //FIN FORMULARIO crear
+  //FIN FORMULARIO AÑADIR
 
 
 
-   //INICIO boton añadir doctor,oculto tabla para mostrar form
+   /*boton añadir doctor,oculto tabla para mostrar form*/
    $('#creaDoc').click(function(e) {
            e.preventDefault();
 
@@ -363,10 +352,9 @@ var idDoctor;
           cargarClinicaCrear();
 
        });
-   //FIN boton añadir doctor,oculto tabla para mostrar form
 
 
-    //INICIO cargarClinicaCrear
+        //INICIO FUNCION CARGARCLINICACREAR
        function cargarClinicaCrear() {
            $.ajax({
                type: 'POST',
@@ -375,7 +363,7 @@ var idDoctor;
                async: false,
               
                error: function(xhr, status, error) {
-                  
+                   
               
                },
                success: function(data) {
@@ -388,24 +376,23 @@ var idDoctor;
 
                },
                complete: {
-                 
+                  
                }
            });
        }
-       //FIN cargarClinicaCrear
+       //FIN FUNCION CARGARCLINICACREAR
 
 
-
-       //INICIO cargarTarifas
+       //INICIO FUNCION CARGARTARIFAS
        function cargarTarifas() {
            $.ajax({
                type: 'POST',
                dataType: 'json',
                url: 'php/listar_tarifas.php',
                async: false,
-             
+               
                error: function(xhr, status, error) {
-                  
+                   
               
                },
                success: function(data) {
@@ -418,12 +405,17 @@ var idDoctor;
 
                },
                complete: {
-                
+                 
                }
            });
        }
-       //FIN cargarTarifas
+       //FIN FUNCION CARGARTARIFAS
 
 
-   });
     
+
+
+          
+       
+   });
+    //FIN MAIN

@@ -1,6 +1,7 @@
 <?php
-$gaSql['user'] = "root";
-$gaSql['password'] = "root";
-$gaSql['db'] = "clinicas";
+header('Access-Control-Allow-Origin: *');
+$gaSql['user'] = "pablocacho_a";
+$gaSql['password'] = "aa12345";
+$gaSql['db'] = "pablocacho_clinicas";
 $gaSql['server'] = "localhost";
 ?>
